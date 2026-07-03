@@ -1,2 +1,2 @@
-# -driver-personality-quiz
+# driver-personality-quiz
 ​物流現場の先読みの知恵をアルゴリズム化。建前を排除し、ドライバーの「本音とリスクのグラデーション」を傾斜配点でリアルタイムに暴く、軽量・高精度な運転性格診断テスト（HTML/JavaScript）。
