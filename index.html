@@ -11,6 +11,9 @@
             --bg-color: #f5f6fa;
             --card-bg: #ffffff;
             --text-color: #333333;
+            --danger-color: #c0392b;
+            --warning-color: #d35400;
+            --success-color: #27ae60;
         }
 
         body {
@@ -44,7 +47,7 @@
             padding: 25px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            display: none; /* JSで制御 */
+            display: none;
         }
 
         .quiz-card.active {
@@ -101,15 +104,19 @@
             border-radius: 8px;
             padding: 30px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
             display: none;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .score-display {
             font-size: 3rem;
             font-weight: bold;
             color: var(--accent-color);
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .result-title {
@@ -121,11 +128,55 @@
 
         .result-desc {
             line-height: 1.6;
-            text-align: left;
             background: #f8f9fa;
             padding: 15px;
             border-radius: 6px;
+            margin-bottom: 30px;
         }
+
+        /* 内訳表示スタイル */
+        .breakdown-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .breakdown-item {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .breakdown-q {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .breakdown-a {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .score-p2 { background-color: #e8f8f5; color: var(--success-color); }
+        .score-p1 { background-color: #eaf2f8; color: #2980b9; }
+        .score-0  { background-color: #f4f6f7; color: #7f8c8d; }
+        .score-m1 { background-color: #fef9e7; color: var(--warning-color); }
+        .score-m2 { background-color: #fdebd0; color: #e67e22; }
+        .score-m3 { background-color: #fadbd8; color: var(--danger-color); }
     </style>
 </head>
 <body>
@@ -139,15 +190,20 @@
     <div id="quiz-container"></div>
 
     <div id="result-area">
-        <h2>診断結果</h2>
-        <div class="score-display"><span id="total-score">0</span>点</div>
-        <div class="result-title" id="result-status">判定中...</div>
-        <div class="result-desc" id="result-commentary"></div>
+        <div class="result-header">
+            <h2>診断結果</h2>
+            <div class="score-display"><span id="total-score">0</span>点</div>
+            <div class="result-title" id="result-status">判定中...</div>
+            <div class="result-desc" id="result-commentary"></div>
+        </div>
+
+        <div class="breakdown-title">📊 あなたの回答内訳</div>
+        <div id="breakdown-container"></div>
     </div>
 </div>
 
 <script>
-    // 問題データ（傾斜配点のアルゴリズムを仕込んだオブジェクト配列）
+    // 問題データ
     const quizData = [
         {
             category: "交差点・信号判断",
@@ -183,13 +239,14 @@
 
     let currentQuestionIndex = 0;
     let userScore = 0;
-    // 今回の最高得点（全て2点の場合）
+    // ユーザーの選択履歴を保存する配列
+    let userAnswers = [];
     const maxScore = quizData.length * 2;
 
     const quizContainer = document.getElementById('quiz-container');
     const resultArea = document.getElementById('result-area');
+    const breakdownContainer = document.getElementById('breakdown-container');
 
-    // クイズの初期レンダリング
     function initQuiz() {
         quizData.forEach((data, index) => {
             const card = document.createElement('div');
@@ -202,7 +259,7 @@
                 <ul class="options-list">
                     ${data.options.map((option, i) => `
                         <li class="option-item">
-                            <button class="option-btn" onclick="handleAnswer(${index}, ${option.score})">
+                            <button class="option-btn" onclick="handleAnswer(${index}, ${i}, ${option.score})">
                                 ${i + 1}) ${option.text}
                             </button>
                         </li>
@@ -213,49 +270,9 @@
         });
     }
 
-    // 回答が選択された時の処理
-    window.handleAnswer = function(questionIndex, score) {
+    window.handleAnswer = function(questionIndex, optionIndex, score) {
         userScore += score;
-
-        // 現在のカードを非表示に
-        document.getElementById(`question-${questionIndex}`).classList.remove('active');
-
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex < quizData.length) {
-            // 次のカードを表示
-            document.getElementById(`question-${currentQuestionIndex}`).classList.add('active');
-        } else {
-            // 全問終了、結果表示
-            showResult();
-        }
-    };
-
-    // 結果のロジック判定
-    function showResult() {
-        quizContainer.style.display = 'none';
-        resultArea.style.display = 'block';
-
-        document.getElementById('total-score').innerText = userScore;
-
-        const statusEl = document.getElementById('result-status');
-        const commentaryEl = document.getElementById('result-commentary');
-
-        // 得点率に応じたロジック（暫定）
-        if (userScore >= maxScore * 0.8) {
-            statusEl.innerText = "🏆 プロフェッショナル・セーフティ";
-            commentaryEl.innerHTML = "<strong>特徴:</strong> 先読み能力、感情コントロールともに極めて優秀です。現場の状況をデータとロジックで冷静に割り切ることができ、時間的なプレッシャーにも動じない強さを持っています。周囲の手本となるドライバーです。";
-        } else if (userScore >= maxScore * 0.5) {
-            statusEl.innerText = "👍 堅実型（状況流され注意）";
-            commentaryEl.innerHTML = "<strong>特徴:</strong> 基本的な安全意識は高いですが、渋滞や時間の遅れなど、外部環境のストレスによってわずかに判断のブレが生じる可能性があります。「急いでも結果は変わらない」という事実ベースの割り切りをさらに意識しましょう。";
-        } else {
-            statusEl.innerText = "⚠️ イエローカード（自己基準・ハイリスク型）";
-            commentaryEl.innerHTML = "<strong>特徴:</strong> 「これくらいなら大丈夫」という主観的なベテラン過信や、焦りがダイレクトに運転行動に出てしまうリスクがあります。ルールを自己判断で省略せず、基本に立ち返る必要があります。";
-        }
-    }
-
-    // 始動
-    initQuiz();
-</script>
-</body>
-</html>
+        
+        // 履歴を保存
+        userAnswers.push({
+            question
