@@ -110,3 +110,65 @@ header {
 .option-btn:hover { border-color: var(--accent-green); background-color: #fcfdfc; }
 
 .skip-btn { border-style: dashed; color: #636e72; }
+
+/* --- 診断結果画面のスタイル調整 --- */
+
+/* 点数の文字を大きく強調 */
+.score-display {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--text-color);
+    margin: 10px 0 20px 0;
+}
+
+/* 判定テキストのスタイル */
+.result-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.breakdown-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* 内訳1問ごとのデザイン */
+.breakdown-item {
+    border-bottom: 1px dashed var(--border-color);
+    padding: 15px 0;
+}
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+.breakdown-q {
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+.breakdown-a {
+    color: #555;
+    font-size: 0.95rem;
+}
+.breakdown-s {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 診断結果の解説テキスト用デザイン */
+#result-commentary {
+    background-color: #f8f9fa;
+    border-left: 5px solid var(--primary-color);
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    text-align: left;
+}
