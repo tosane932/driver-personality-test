@@ -14,7 +14,28 @@
         <p>現場のための安全運転プロファイリング（全50問）</p>
     </header>
 
+    <div id="start-screen">
+        <h2>🚛 診断を始める前に...</h2>
+        <p style="line-height:1.7;">
+            全50問、現場のリアルな状況をもとにした運転性格診断です。<br>
+            直感で「一番自分に近いもの」をお選びください。判断に迷う質問は「状況が判断できない／該当なし」でスキップすることもできます。
+        </p>
+
+        <div class="past-scores-title">📋 過去の受診履歴（このページを閉じるとリセットされます）</div>
+        <ul id="past-scores-list">
+            <li class="empty-msg">読み込み中...</li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 25px;">
+            <button id="start-quiz-btn" class="option-btn" style="width: 100%; max-width: 300px; text-align: center; background-color: var(--primary-color); color: white;" onclick="startQuiz()">運転性格診断スタート🚛</button>
+        </div>
+    </div>
+
     <div id="quiz-container"></div>
+
+    <div id="back-to-top-link" style="text-align:center; margin-top: 10px; margin-bottom: 20px;">
+        <a href="../index.html" style="color: #636e72; font-size: 0.85rem; text-decoration: none; border-bottom: 1px dashed #636e72;">← トップページに戻る</a>
+    </div>
 
     <div id="result-area">
         <div style="text-align: right; margin-bottom: 15px;">
@@ -37,6 +58,8 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script src="db.js"></script>
 <script src="quizData.js"></script>
 <script src="app.js"></script>
 </body>
