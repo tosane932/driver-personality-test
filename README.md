@@ -3,7 +3,7 @@
 物流現場におけるリアルな状況判断をもとに、ドライバーの安全運転気質を5つのタイプに分類・可視化するWebアプリケーションです。
 
 👉 **[デプロイ先URL]**
-https://tosane932.github.io/driver-personality-quiz/
+https://tosane932.github.io/driver-personality-test/
 
 ---
 
