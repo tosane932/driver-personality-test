@@ -1,4 +1,4 @@
-let currentQuestionIndex = 0;
+let currentQuestionIndex = 0; 
 let userAnswers = [];
 const testContainer = document.getElementById('test-container');
 

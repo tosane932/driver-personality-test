@@ -1,4 +1,4 @@
-let db = null;
+let db = null; 
 
 async function initDb() {
     const SQL = await initSqlJs({
