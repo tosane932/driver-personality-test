@@ -1,6 +1,6 @@
 # 🚛 運転性格診断プロファイラー (Safety Drive Profiler)
 
-## [クイズページはこちら👈️](https://tosane932.github.io/driver-personality-quiz/)
+## [運転性格診断クイズ👈️](https://tosane932.github.io/driver-personality-quiz/)
 (クリックすると運転性格診断クイズのページに移動します)
 
 ## 📌 概要
