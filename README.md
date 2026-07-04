@@ -1,8 +1,6 @@
 # 🚛 運転性格診断プロファイラー (Safety Drive Profiler)
 
-## クイズページ
-
-[クイズページはこちら](https://tosane932.github.io/driver-personality-quiz/)
+## [クイズページはこちら](https://tosane932.github.io/driver-personality-quiz/)
 
 ## 📌 概要
 本プロジェクトは、7年以上の物流現場（大型ドライバー・自販機ルートマン）で培った安全運行・データ駆動管理のドメイン知識と、Webフロントエンド技術を掛け合わせて開発した**「プロドライバーのための本音を暴く運転性格診断クイズ」**です。
