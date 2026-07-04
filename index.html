@@ -132,6 +132,8 @@
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 30px;
+            white-space: pre-wrap;
+            text-align: left;
         }
 
         /* 内訳表示スタイル */
@@ -177,13 +179,20 @@
         .score-m1 { background-color: #fef9e7; color: var(--warning-color); }
         .score-m2 { background-color: #fdebd0; color: #e67e22; }
         .score-m3 { background-color: #fadbd8; color: var(--danger-color); }
+
+        .progress-bar {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>🚛 運転性格診断テスト (完全版)</h1>
+        <h1>🚛 運転性格診断テスト</h1>
         <p>本音で答える、現場のための安全運転プロファイリング</p>
     </header>
 
@@ -203,7 +212,7 @@
 </div>
 
 <script>
-    // 全50問のデータ
+    // 全質問データ（タイポ修正、途切れていた箇所の補完、50問目の調整）
     const quizData = [
         // === カテゴリ1: 交差点・信号判断(8問) ===
         {
@@ -260,7 +269,7 @@
             category: "交差点・信号判断",
             question: "右折待ちで対向直進車が来ている。信号が黄色に変わった。あなたは?",
             options: [
-                { text: "対向車が完全に停止するのを目視で確認するまで、その場で待記する", score: 2 },
+                { text: "対向車が完全に停止するのを目視で確認するまで、その場で待機する", score: 2 },
                 { text: "黄色信号だから対向車は止まるだろうと予測し、減速を確認せずに曲がり始める", score: -2 },
                 { text: "交差点内に取り残されるのを嫌い、対向車が来る前に強引に右折を終わらせる", score: -3 },
                 { text: "後続の右折車からプレッシャーを感じたら、少し焦って動き出してしまう", score: -1 }
@@ -300,7 +309,7 @@
         },
         {
             category: "緊急車両対応",
-            question: "交差点進入直前でパトカーのサイレンが聞こえただが、どの方向から来るか分からない。あなたは?",
+            question: "交差点進入直前でパトカーのサイレンが聞こえたが、どの方向から来るか分からない。あなたは?",
             options: [
                 { text: "交差点の手前（進入前）で一旦停止し、パトカーの姿か動線が確認できるまで待つ", score: 2 },
                 { text: "交差点内で立ち往生するのを防ぐため、急いで交差点を抜けてから左に寄せる", score: 1 },
@@ -333,7 +342,7 @@
             question: "緊急車両が反対車線を走行中。自車の車線には直接関係ないように見える。あなたは?",
             options: [
                 { text: "対向車が急にこちら側に避けてくる、または歩行者が驚いて飛び出す可能性を考慮し減速する", score: 2 },
-                { text: "自分の車線側には物理的な障害がないため、特に何もしつけず通常走行する", score: 1 },
+                { text: "自分の車線側には物理的な障害がないため、特に何もせず通常走行する", score: 1 },
                 { text: "反対車線の車が減速して流れが悪くなるのを見越し、自車線側で追い越しを試みる", score: -2 },
                 { text: "緊急車両の動きに見とれてしまい、前方への注意が一瞬疎かになることがある", score: -2 }
             ]
@@ -343,7 +352,7 @@
             question: "荷物満載で急ブレーキを踏むと荷崩れや追突のリスクがある状況で、サイレンが聞こえた。あなたは?",
             options: [
                 { text: "段階的にポンピングブレーキを踏んで後続に知らせつつ、早めに減速して滑らかに停止する", score: 2 },
-                { text: "ギリギリまで通常走行を続け、完全に安全な退避スペースが見つかってから急めに止まる", score: -1 },
+                { text: "ギリギリまで通常走行を続け、完全に安全な退避スペースが見つかってから早めに止まる", score: -1 },
                 { text: "荷物の安全を最優先し、完全停止はせずに徐行のまま左側を走り続けて道を譲る", score: 1 },
                 { text: "運行スケジュールが遅れている場合は、緊急車両が自車を追い越すまで避けない", score: -3 }
             ]
@@ -362,7 +371,7 @@
             category: "緊急車両対応",
             question: "緊急車両が接近しているが、自分がどのルート（進路）を塞いでしまっているか分からない。あなたは?",
             options: [
-                { text: "下手に動くと危険なので、まずは原則通り左側に寄せて速度を落とし（または停止し）相手の回避を待つ", score: 2 },
+                { text: "下手に動くと危険なので、まずは原則通り左側に寄せて速度を落とし（または停止し）、相手の回避を待つ", score: 2 },
                 { text: "判断がつくまで道路の真ん中であっても完全に動きを止め、状況を注視する", score: 0 },
                 { text: "直感で「こちらだろう」と考え、右側や中央分離帯側に車を寄せる", score: -2 },
                 { text: "パニックになり、とりあえずサイレンの音が遠ざかる方向へ加速して走る", score: -3 }
@@ -437,7 +446,7 @@
             question: "運行中に急に激しい雨が降り始めた。あなたの初動の調整は?",
             options: [
                 { text: "路面の摩擦係数（ハイドロプレーニング等）の低下を考慮し、即座に速度を落とし車間を2倍にする", score: 2 },
-                { text: "しばらく周囲の車の様子やワイパーの効き具合を見てから、徐々に速度を落とす", score: 1 },
+                { text: "しばらく周囲の車の様子やワイパーの効き具合を見てから、徐々に速度を落とする", score: 1 },
                 { text: "視界は少し悪くなるが、タイヤの溝はあるので制限速度いっぱいのまま走行を続ける", score: -1 },
                 { text: "雨による視界不良を恐れ、前の車のテールランプのすぐ後ろに張り付いて追従しようとする", score: -2 }
             ]
@@ -550,3 +559,119 @@
             options: [
                 { text: "疲れている時ほどヒューマンエラーが起きると知っているため、より一層意識して動作を徹底する", score: 2 },
                 { text: "意識はしているが、体力が削られているため、動作が少し小さくなったり形式的（形だけ）になったりする", score: -1 },
+                { text: "確認の手間を省くため、大きな危険を伴わないと思われる箇所は目視だけで済ませる", score: -2 },
+                { text: "疲労と面倒くささが勝り、確認動作そのものをほぼ省略してしまう", score: -3 }
+            ]
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const resultArea = document.getElementById('result-area');
+    const totalScoreSpan = document.getElementById('total-score');
+    const resultStatusDiv = document.getElementById('result-status');
+    const resultCommentaryDiv = document.getElementById('result-commentary');
+    const breakdownContainer = document.getElementById('breakdown-container');
+
+    // クイズの初期生成
+    function initQuiz() {
+        quizData.forEach((qData, index) => {
+            const card = document.createElement('div');
+            card.className = `quiz-card ${index === 0 ? 'active' : ''}`;
+            card.id = `question-${index}`;
+
+            card.innerHTML = `
+                <div class="progress-bar">質問 ${index + 1} / ${quizData.length}</div>
+                <span class="category-badge">${qData.category}</span>
+                <div class="question-text">${qData.question}</div>
+                <ul class="options-list">
+                    ${qData.options.map((opt, oIdx) => `
+                        <li class="option-item">
+                            <button class="option-btn" onclick="selectOption(${index}, ${oIdx})">${opt.text}</button>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            quizContainer.appendChild(card);
+        });
+    }
+
+    // 回答選択時の処理
+    window.selectOption = function(qIdx, oIdx) {
+        const selectedOption = quizData[qIdx].options[oIdx];
+        userAnswers.push({
+            question: quizData[qIdx].question,
+            answer: selectedOption.text,
+            score: selectedOption.score
+        });
+
+        // 現在のカードを非表示に
+        document.getElementById(`question-${qIdx}`).classList.remove('active');
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < quizData.length) {
+            // 次のカードを表示
+            document.getElementById(`question-${currentQuestionIndex}`).classList.add('active');
+        } else {
+            // 全問終了、結果表示
+            showResult();
+        }
+    };
+
+    // 結果の集計と表示
+    function showResult() {
+        quizContainer.style.display = 'none';
+        resultArea.style.display = 'block';
+
+        const totalScore = userAnswers.reduce((sum, ans) => sum + ans.score, 0);
+        totalScoreSpan.innerText = totalScore;
+
+        // スコアに応じた判定ロジック
+        let status = "";
+        let commentary = "";
+
+        if (totalScore >= 60) {
+            status = "金看板級！プロフェッショナル安全運転士";
+            commentary = "素晴らしい！現場のあらゆるリスクを完全に「事実ベース」で予測・管理できている完璧な状態です。体調管理や法令遵守の意識も極めて高く、他の模範となる最高峰のプロドライバーです。";
+        } else if (totalScore >= 30) {
+            status = "優秀ドライバー（安全圏）";
+            commentary = "高い安全意識を持っています。現場のセオリーをしっかりと理解し、安全な運行計画を実行できています。一部、焦りや疲労時の選択肢でわずかにリスクが潜んでいるため、そこを最適化すれば完璧です。";
+        } else if (totalScore >= 0) {
+            status = "一般ドライバー・要警戒";
+            commentary = "平均的な運転センスはありますが、プロとしての「予測防衛運転」としては、まだ現場の不確定要素（もらい事故、急な割り込み）へのリソース管理が甘い部分があります。車間距離と一時停止をもう一度見直してみましょう。";
+        } else {
+            status = "イエローカード（事故高リスク状態）";
+            commentary = "危険です。スケジュールや感情の波に運転が左右されやすく、重大エラーを引き起こす直前の「ヒヤリハット」が多発している可能性があります。プロのプライドを「無事故」という絶対の事実で証明するために、今すぐ防衛運転へ切り替えてください。";
+        }
+
+        resultStatusDiv.innerText = status;
+        resultCommentaryDiv.innerText = commentary;
+
+        // 内訳の生成
+        breakdownContainer.innerHTML = userAnswers.map((ans, idx) => {
+            let scoreClass = "score-0";
+            if (ans.score === 2) scoreClass = "score-p2";
+            else if (ans.score === 1) scoreClass = "score-p1";
+            else if (ans.score === -1) scoreClass = "score-m1";
+            else if (ans.score === -2) scoreClass = "score-m2";
+            else if (ans.score === -3) scoreClass = "score-m3";
+
+            return `
+                <div class="breakdown-item">
+                    <div class="breakdown-q">問${idx + 1}. ${ans.question}</div>
+                    <div class="breakdown-a">あなたの回答: ${ans.answer}</div>
+                    <div>評価: <span class="score-badge ${scoreClass}">${ans.score >= 0 ? '+' : ''}${ans.score} 点</span></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // 初期化実行
+    initQuiz();
+</script>
+
+</body>
+</html>
