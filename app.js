@@ -53,18 +53,20 @@ window.selectOption = function(qIdx, oIdx) {
     }
 };
 
-// 診断結果を表示する関数（20点刻みの5段階判定にリファクタリング済み）
+// 診断結果を表示する関数（20点刻みの5段階判定）
 function showResult() {
     quizContainer.style.display = 'none';
     resultArea.style.display = 'block';
 
-    const totalScore = userAnswers.reduce((sum, ans) => sum + ans.score, 0);
+    // 全てのスコアを合計（浮動小数点の計算誤差を防ぐため四捨五入して綺麗に表示）
+    let rawScore = userAnswers.reduce((sum, ans) => sum + ans.score, 0);
+    const totalScore = Math.round(rawScore * 10) / 10; // 小数第1位までに丸める
     totalScoreSpan.innerText = totalScore;
 
     let status = "";
     let commentary = "";
 
-    // 20点刻みの厳格な5段階判定ロジック
+    // 0点〜100点に収まる厳格な5段階判定ロジック
     if (totalScore >= 80) {
         status = "判定：🏆 プラチナ・プロフェッショナル（80点以上）";
         commentary = "完璧な防衛運転の体現者です。リスクの予測、自身の疲労管理、悪天候への適応など、あらゆる場面で客観的かつ論理的な最適解を選択できています。現場でも模範となる最高峰のドライバーです。";
@@ -78,21 +80,20 @@ function showResult() {
         status = "判定：🟡 イエローカード（20〜39点）";
         commentary = "感情の波や現場の焦りが直接運転操作に影響を及ぼし始めています。潜在的な事故リスクが非常に高い状態です。車間距離の確保や確認動作の徹底を即座に見直してください。";
     } else {
-        status = "判定：🔴 レッドカード（20点未満）";
+        status = "判定：🔴 レッドカード（0〜19点）";
         commentary = "非常に危険な運転傾向が見られます。重大事故に直結するリスクを許容、あるいは軽視している可能性が高いです。プロとしての自覚と防衛運転の基本（安全速度・車間距離・下車確認など）を根本から叩き直す必要があります。";
     }
 
     resultStatusDiv.innerText = status;
     resultCommentaryDiv.innerText = commentary;
 
-    // スコアバッジの色分け用マッピング
+    // スコアバッジの色分け用マッピング（新配点に合わせて整理）
     const scoreClassMap = {
         '2': 'score-p2',
-        '1': 'score-p1',
-        '0': 'score-0',
-        '-1': 'score-m1',
-        '-2': 'score-m2',
-        '-3': 'score-m3'
+        '1.5': 'score-p1',
+        '1': 'score-0',
+        '0.5': 'score-m1',
+        '0': 'score-m2'
     };
 
     // 回答内訳の生成
@@ -103,7 +104,7 @@ function showResult() {
             <div class="breakdown-item">
                 <div class="breakdown-q">問${idx + 1}. ${ans.question}</div>
                 <div class="breakdown-a">あなたの回答: ${ans.answer}</div>
-                <div>評価: <span class="score-badge ${scoreClass}">${ans.score >= 0 ? '+' : ''}${ans.score} 点</span></div>
+                <div>評価: <span class="score-badge ${scoreClass}">+${ans.score} 点</span></div>
             </div>
         `;
     }).join('');
