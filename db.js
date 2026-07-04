@@ -5,7 +5,7 @@ async function initDb() {
         locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
     });
     // 固有のキー名に変更
-    const STORAGE_KEY = 'truck_driver_quiz_db_v1';
+    const STORAGE_KEY = 'truck_driver_test_db_v1';
 
     // 1. まずブラウザのLocalStorageに過去のDBデータ（ロッカーの荷物）がないか確認
     const savedDb = localStorage.getItem(STORAGE_KEY);

@@ -21,7 +21,7 @@ header {
 }
 
 
-.quiz-card {
+.test-card {
     background: var(--card-bg);
     border-radius: 12px;
     padding: 30px;
@@ -29,7 +29,7 @@ header {
     margin-bottom: 20px;
     display: none; /* デフォルト非表示に戻したよ */
 }
-.quiz-card.active { display: block; }
+.test-card.active { display: block; }
 
 #result-area {
     display: none;
@@ -43,7 +43,7 @@ header {
     margin-bottom: 20px;
 }
 
-#quiz-container {
+#test-container {
     display: none;
 }
 

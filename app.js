@@ -1,6 +1,6 @@
 let currentQuestionIndex = 0;
 let userAnswers = [];
-const quizContainer = document.getElementById('quiz-container');
+const testContainer = document.getElementById('test-container');
 
 function shuffleArray(array) {
     const arr = [...array];
@@ -11,19 +11,19 @@ function shuffleArray(array) {
     return arr;
 }
 
-function initQuiz() {
-    quizContainer.innerHTML = '';
-    quizData.forEach((qData, index) => {
+function initTest() {
+    testContainer.innerHTML = '';
+    testData.forEach((qData, index) => {
         const card = document.createElement('div');
-        card.className = `quiz-card ${index === 0 ? 'active' : ''}`;
+        card.className = `test-card ${index === 0 ? 'active' : ''}`;
         card.id = `question-${index}`;
 
-        const progress = ((index) / quizData.length) * 100;
+        const progress = ((index) / testData.length) * 100;
         const shuffledOptions = shuffleArray(qData.options);
 
         card.innerHTML = `
             <div class="progress-container"><div class="progress-bar" style="width: ${progress}%"></div></div>
-            <div style="font-size:0.8rem; color:#636e72;">質問 ${index + 1} / ${quizData.length}</div>
+            <div style="font-size:0.8rem; color:#636e72;">質問 ${index + 1} / ${testData.length}</div>
             <div class="question-text">${qData.question}</div>
             <ul style="list-style:none; padding:0;">
                 ${shuffledOptions.map((opt, oIdx) => `
@@ -32,15 +32,15 @@ function initQuiz() {
                 <li><button class="option-btn skip-btn" onclick="handleAnswer(${index}, -1, '回答なし', 0)">状況が判断できない／該当なし</button></li>
             </ul>
         `;
-        quizContainer.appendChild(card);
+        testContainer.appendChild(card);
     });
 }
 
-// 画面切り替え（start / quiz / result）をまとめて管理する関数
+// 画面切り替え（start / test / result）をまとめて管理する関数
 function showScreen(screen) {
     document.getElementById('start-screen').style.display = screen === 'start' ? 'block' : 'none';
-    document.getElementById('quiz-container').style.display = screen === 'quiz' ? 'block' : 'none';
-    document.getElementById('back-to-top-link').style.display = screen === 'quiz' ? 'block' : 'none';
+    document.getElementById('test-container').style.display = screen === 'test' ? 'block' : 'none';
+    document.getElementById('back-to-top-link').style.display = screen === 'test' ? 'block' : 'none';
     document.getElementById('result-area').classList.toggle('show', screen === 'result');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -58,17 +58,17 @@ function renderPastScores() {
     `).join('');
 }
 
-window.startQuiz = function() {
+window.startTest = function() {
     userAnswers = [];
-    initQuiz();
-    showScreen('quiz');
+    initTest();
+    showScreen('test');
 };
 
 window.handleAnswer = function(qIdx, oIdx, text, score) {
-    userAnswers[qIdx] = { question: quizData[qIdx].question, answer: text, score: score };
+    userAnswers[qIdx] = { question: testData[qIdx].question, answer: text, score: score };
     document.getElementById(`question-${qIdx}`).classList.remove('active');
 
-    if (qIdx + 1 < quizData.length) {
+    if (qIdx + 1 < testData.length) {
         // まだ次の問題がある場合
         document.getElementById(`question-${qIdx + 1}`).classList.add('active');
     } else {
@@ -137,7 +137,7 @@ window.handleAnswer = function(qIdx, oIdx, text, score) {
     }
 };
 
-window.resetQuiz = function() {
+window.resetTest = function() {
     userAnswers = [];
     renderPastScores();
     showScreen('start');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚛 運転性格診断テスト (50問)</title>
+    <title>🚛 運転性格診断テスト (50問) - Driver Personality Test(DPT)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,11 +28,11 @@
         </ul>
 
         <div style="text-align: center; margin-top: 25px;">
-            <button id="start-quiz-btn" class="option-btn" style="width: 100%; max-width: 300px; text-align: center; background-color: var(--primary-color); color: white;" onclick="startQuiz()">運転性格診断スタート🚛</button>
+            <button id="start-test-btn" class="option-btn" style="width: 100%; max-width: 300px; text-align: center; background-color: var(--primary-color); color: white;" onclick="startTest()">運転性格診断スタート🚛</button>
         </div>
     </div>
 
-    <div id="quiz-container"></div>
+    <div id="test-container"></div>
 
     <div id="back-to-top-link" style="text-align:center; margin-top: 10px; margin-bottom: 20px;">
         <a href="../index.html" style="color: #636e72; font-size: 0.85rem; text-decoration: none; border-bottom: 1px dashed #636e72;">← トップページに戻る</a>
@@ -40,7 +40,7 @@
 
     <div id="result-area">
         <div style="text-align: right; margin-bottom: 15px;">
-            <button class="option-btn" style="width: auto; display: inline-block; padding: 10px 20px;" onclick="resetQuiz()">🔄 テストをやり直す</button>
+            <button class="option-btn" style="width: auto; display: inline-block; padding: 10px 20px;" onclick="resetTest()">🔄 テストをやり直す</button>
         </div>
 
         <div class="result-header">
@@ -54,14 +54,14 @@
         <div id="breakdown-container"></div>
 
         <div style="text-align: center; margin-top: 25px;">
-            <button class="option-btn" style="width: 100%; max-width: 300px; text-align: center; background-color: var(--primary-color); color: white;" onclick="resetQuiz()">🔄 もう一度テストを受ける</button>
+            <button class="option-btn" style="width: 100%; max-width: 300px; text-align: center; background-color: var(--primary-color); color: white;" onclick="resetTest()">🔄 もう一度テストを受ける</button>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
 <script src="db.js"></script>
-<script src="test_data.js"></script>
+<script src="testData.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

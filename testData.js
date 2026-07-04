@@ -1,4 +1,4 @@
-const quizData = [
+const testData = [
     // === カテゴリ1: 公道での他車・歩行者との遭遇 (10問) ===
     {
         category: "公道での他車・歩行者との遭遇",
