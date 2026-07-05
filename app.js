@@ -1,5 +1,6 @@
 let currentQuestionIndex = 0; 
 let userAnswers = [];
+let shuffledQuestions = [];
 const testContainer = document.getElementById('test-container');
 
 function shuffleArray(array) {
@@ -13,12 +14,12 @@ function shuffleArray(array) {
 
 function initTest() {
     testContainer.innerHTML = '';
-    testData.forEach((qData, index) => {
+    shuffledQuestions.forEach((qData, index) => {
         const card = document.createElement('div');
         card.className = `test-card ${index === 0 ? 'active' : ''}`;
         card.id = `question-${index}`;
 
-        const progress = ((index) / testData.length) * 100;
+        const progress = ((index) / shuffledQuestions.length) * 100;
         const shuffledOptions = shuffleArray(qData.options);
 
         card.innerHTML = `
@@ -60,15 +61,16 @@ function renderPastScores() {
 
 window.startTest = function() {
     userAnswers = [];
+    shuffledQuestions = shuffleArray(testData);
     initTest();
     showScreen('test');
 };
 
 window.handleAnswer = function(qIdx, oIdx, text, score) {
-    userAnswers[qIdx] = { question: testData[qIdx].question, answer: text, score: score };
+    userAnswers[qIdx] = { question: shuffledQuestions[qIdx].question, answer: text, score: score };
     document.getElementById(`question-${qIdx}`).classList.remove('active');
 
-    if (qIdx + 1 < testData.length) {
+    if (qIdx + 1 < shuffledQuestions.length) {
         // まだ次の問題がある場合
         document.getElementById(`question-${qIdx + 1}`).classList.add('active');
     } else {
