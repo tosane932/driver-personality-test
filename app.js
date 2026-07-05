@@ -151,5 +151,4 @@ async function boot() {
     showScreen('start');
 }
 
-
 boot();
