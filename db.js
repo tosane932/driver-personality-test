@@ -1,5 +1,5 @@
 let db = null; 
-const STORAGE_KEY = 'truck_driver_test_db_v1';
+const STORAGE_KEY = 'truck_driver_test_db_v1'; 
 
 async function initDb() {
     const SQL = await initSqlJs({
