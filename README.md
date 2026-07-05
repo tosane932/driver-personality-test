@@ -2,14 +2,11 @@
 
 物流現場におけるリアルな状況判断をもとに、ドライバーの安全運転気質を5つのタイプに分類・可視化するWebアプリケーションです。
 
-👉 [DPT 運転性格診断テスト](https://tosane932.github.io/driver-personality-test/)
+👉 [DPT 運転性格診断テスト(https://tosane932.github.io/driver-personality-test/)
+](https://tosane932.github.io/driver-personality-test/)
 
-(https://tosane932.github.io/driver-personality-test/)
 
-
-👉️ [Qiitaに詳しい経緯を載せています](https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)
-
-(https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)
+👉️ [Qiitaに詳しい経緯を載せています(https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)](https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)
 
 
 ---
