@@ -5,6 +5,8 @@
 👉 **[デプロイ先URL]**
 https://tosane932.github.io/driver-personality-test/
 
+[Qiitaに詳しい経緯を載せています👈️](https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)
+
 ---
 
 ## 📌 概要
