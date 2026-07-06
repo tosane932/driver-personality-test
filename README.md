@@ -26,7 +26,7 @@
 
 <!-- After: 初回キャッシュバスターパラメータの追加（自動更新される状態） -->
 <script src="app.js?v=20260707"></script>
-
+```
 
 [📝Qiitaに詳しい経緯を載せています](https://qiita.com/tosane932/items/220d0f7d36bd79b2aa81)
 
