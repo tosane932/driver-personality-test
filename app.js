@@ -121,13 +121,16 @@ testContainer.addEventListener('click', (event) => {
     const qIdx = Number(button.dataset.qIndex);
     const oIdx = Number(button.dataset.oIndex);
 
-    if (oIdx === -1) {
-        handleAnswer(qIdx, -1, '回答なし', 0);
-        return;
-    }
+    // リップルが見えるように少し待ってから画面を切り替える
+    setTimeout(() => {
+        if (oIdx === -1) {
+            handleAnswer(qIdx, -1, '回答なし', 0);
+            return;
+        }
 
-    const opt = shuffledQuestions[qIdx].shuffledOptions[oIdx];
-    handleAnswer(qIdx, oIdx, opt.text, opt.score);
+        const opt = shuffledQuestions[qIdx].shuffledOptions[oIdx];
+        handleAnswer(qIdx, oIdx, opt.text, opt.score);
+    }, 300); // リップルのanimation(0.6s)より短めに、でも見える程度
 });
 
 // 画面切り替え（start / test / result）をまとめて管理する関数
